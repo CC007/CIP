@@ -1,0 +1,18 @@
+name: CIP
+version: 1.0.0
+main: com.github.cc007.cip.CIP
+author: Rik Schaaf aka CC007 (http://coolcat007.nl/)
+depend: [Essentials]
+description: >
+             An ip checker that checks if a player uses an ip address for which a user was previously banned
+commands:
+    cip:
+        description: "all ip checker commands"
+        aliases: [ipcheck, ipchecker]
+permissions:
+    cip.setlevel:
+        description: the ability to set the level of security
+    cip.notifyalts:
+        description: notify staff on alts of the person who logs on
+    cip.notifybanned:
+        description: notify staff when someone logs on from an ip from which someone got banned
