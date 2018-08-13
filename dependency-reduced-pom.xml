@@ -154,7 +154,7 @@
       <artifactId>Essentials</artifactId>
       <version>2.13.1</version>
       <scope>system</scope>
-      <systemPath>D:\Local\My Documents\NetBeansProjects\IpChecker/Essentials.jar</systemPath>
+      <systemPath>D:\Local\My Documents\NetBeansProjects\Java\Plugins\Minecraft\IpChecker/Essentials.jar</systemPath>
     </dependency>
   </dependencies>
   <distributionManagement>

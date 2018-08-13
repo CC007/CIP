@@ -57,12 +57,10 @@ public class CIPEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(final PlayerLoginEvent event) {
-        plugin.getLogger().log(Level.INFO, event.getPlayer().getName() + " tries to log in");
         Thread t = new Thread() {
 
             @Override
             public void run() {
-                plugin.getLogger().log(Level.INFO, "Getting users from ip");
                 Set<User> users = getAllUsersFromIp(event.getAddress());
                 Set<Player> notifyAltsStaff = getOnlineStaff(CIPNotifyType.ALTS);
                 String altsNotification = "";
@@ -79,14 +77,12 @@ public class CIPEventListener implements Listener {
                 boolean banned = false;
                 User bannedUser = null;
                 for (User user : users) {
-                    plugin.getLogger().log(Level.INFO, "user name: {0}", user.getName());
                     if (Bukkit.getBanList(BanList.Type.NAME).getBanEntry(user.getName()) != null) {
                         banned = true;
                         bannedUser = user;
                         break;
                     }
                 }
-                plugin.getLogger().log(Level.INFO, "Check if banned: {0}", banned);
                 if (banned) {
                     Set<Player> notifyBannedStaff = getOnlineStaff(CIPNotifyType.BANNED);
                     plugin.getLogger().log(Level.WARNING, "The player named {0} uses an IP address for which a user was previously banned!", event.getPlayer().getDisplayName());
@@ -136,7 +132,6 @@ public class CIPEventListener implements Listener {
     private Set<User> getAllUsersFromIp(InetAddress address) {
         Set<User> users = new HashSet<>();
         UserMap uMap = plugin.getEssentials().getUserMap();
-        plugin.getLogger().log(Level.INFO, "number of found users: {0}", uMap.getAllUniqueUsers().size());
         for (UUID userID : uMap.getAllUniqueUsers()) {
             User user = uMap.getUser(userID);
             if (user != null
@@ -145,11 +140,9 @@ public class CIPEventListener implements Listener {
                     && plugin.getEssentials().getOfflineUser(user.getName()) != null
                     && plugin.getEssentials().getOfflineUser(user.getName()).getLastLoginAddress() != null
                     && plugin.getEssentials().getOfflineUser(user.getName()).getLastLoginAddress().equals(address.getHostAddress())) {
-                plugin.getLogger().log(Level.INFO, "{0}: IP match has been found: {1}->{2}", new Object[]{user.getBase().getUniqueId(), plugin.getEssentials().getOfflineUser(user.getName()).getLastLoginAddress(), address.getHostAddress()});
                 users.add(user);
             } else if (user != null
                     && user.getBase() != null) {
-                plugin.getLogger().log(Level.INFO, "{0}: No IP match: {1}->{2}", new Object[]{user.getBase().getUniqueId(), plugin.getEssentials().getOfflineUser(user.getName()).getLastLoginAddress(), address.getHostAddress()});
             }
         }
         return users;
